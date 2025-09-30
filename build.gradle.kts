@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.kotlin.allopen)
   alias(libs.plugins.micronaut.application)
   alias(libs.plugins.shadow)
+  alias(libs.plugins.detekt)
 }
 
 version = "0.1"
@@ -42,8 +43,14 @@ kotlin {
     }
 }
 
+detekt {
+  toolVersion = libs.versions.detekt.get()
+  config.setFrom(file("config/detekt/detekt.yml"))
+  buildUponDefaultConfig = true
+}
+
 micronaut {
-    version("4.9.3")
+    version(libs.versions.micronaut.version.get())
     testRuntime("junit5")
     processing {
         incremental(true)
