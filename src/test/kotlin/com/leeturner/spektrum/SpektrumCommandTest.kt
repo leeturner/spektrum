@@ -1,12 +1,12 @@
-package com.leeturner
+package com.leeturner.spektrum
 
 import io.micronaut.configuration.picocli.PicocliRunner
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.env.Environment
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions
 
 class SpektrumCommandTest {
 

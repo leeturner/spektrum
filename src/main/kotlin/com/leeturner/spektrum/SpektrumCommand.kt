@@ -1,18 +1,13 @@
-package com.leeturner
+package com.leeturner.spektrum
 
 import io.micronaut.configuration.picocli.PicocliRunner
-import io.micronaut.context.ApplicationContext
-
 import picocli.CommandLine
-import picocli.CommandLine.Command
-import picocli.CommandLine.Option
-import picocli.CommandLine.Parameters
 
-@Command(name = "spektrum", description = ["..."],
+@CommandLine.Command(name = "spektrum", description = ["..."],
         mixinStandardHelpOptions = true)
 class SpektrumCommand : Runnable {
 
-    @Option(names = ["-v", "--verbose"], description = ["..."])
+    @CommandLine.Option(names = ["-v", "--verbose"], description = ["..."])
     private var verbose : Boolean = false
 
     override fun run() {
