@@ -5,6 +5,7 @@ plugins {
   alias(libs.plugins.micronaut.application)
   alias(libs.plugins.shadow)
   alias(libs.plugins.detekt)
+  alias(libs.plugins.kotlinter)
 }
 
 version = "0.1"
