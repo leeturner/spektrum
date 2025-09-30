@@ -5,9 +5,7 @@ kotlin = "2.1.21"
 kapt = "2.1.21"
 
 # Micronaut
-micronaut = "4.9.3"
 micronaut-application = "4.5.4"
-#micronaut-aot = "4.5.4"
 
 # Plugins
 shadow = "8.3.9"

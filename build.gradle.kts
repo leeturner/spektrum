@@ -43,6 +43,7 @@ kotlin {
 }
 
 micronaut {
+    version("4.9.3")
     testRuntime("junit5")
     processing {
         incremental(true)
