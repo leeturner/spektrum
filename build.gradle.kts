@@ -1,36 +1,37 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.25"
-    id("org.jetbrains.kotlin.kapt") version "1.9.25"
-    id("org.jetbrains.kotlin.plugin.allopen") version "1.9.25"
-    id("io.micronaut.application") version "4.5.4"
-    id("com.gradleup.shadow") version "8.3.7"
+  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.kapt)
+  alias(libs.plugins.kotlin.allopen)
+  alias(libs.plugins.micronaut.application)
+  alias(libs.plugins.shadow)
 }
 
 version = "0.1"
-group = "com.leeturner"
+group = "com.leeturner.spektrum"
 
-val kotlinVersion=project.properties.get("kotlinVersion")
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    kapt("info.picocli:picocli-codegen")
-    kapt("io.micronaut.serde:micronaut-serde-processor")
-    implementation("info.picocli:picocli")
-    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
-    implementation("io.micronaut.picocli:micronaut-picocli")
-    implementation("io.micronaut.serde:micronaut-serde-jackson")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    runtimeOnly("ch.qos.logback:logback-classic")
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    kapt(libs.picocli.codegen)
+    kapt(libs.micronaut.serde.processor)
+    implementation(libs.picocli)
+    implementation(libs.micronaut.kotlin.extension.functions)
+    implementation(libs.micronaut.kotlin.runtime)
+    implementation(libs.micronaut.picocli)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlin.stdlib.jdk8)
+    runtimeOnly(libs.logback.classic)
+  
+    testImplementation(libs.junit.platform.suite)
+    testImplementation(libs.strikt.core)
 }
-
 
 application {
-    mainClass = "com.leeturner.SpektrumCommand"
+    mainClass = "com.leeturner.spektrum.SpektrumCommand"
 }
+
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
 }
@@ -41,15 +42,14 @@ kotlin {
     }
 }
 
-
 micronaut {
+    version("4.9.3")
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("com.leeturner.*")
+        annotations("com.leeturner.spektrum*")
     }
 }
-
 
 tasks.named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") {
     jdkVersion = "21"
