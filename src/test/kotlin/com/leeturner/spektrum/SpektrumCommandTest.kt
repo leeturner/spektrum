@@ -9,7 +9,6 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
 class SpektrumCommandTest {
-
     @Test
     fun testWithCommandLineOption() {
         val ctx = ApplicationContext.run(Environment.CLI, Environment.TEST)
