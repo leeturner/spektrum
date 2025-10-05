@@ -5,7 +5,6 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
 class RegistersTest {
-
     @Test
     fun initialState() {
         val registers = Registers()
@@ -95,7 +94,6 @@ class RegistersTest {
         expectCurrentAccumulatorAndFlagRegisterStates(registers.flipAccumulatorAndFlagRegisterSet(), 3u, 4u)
         expectCurrentAccumulatorAndFlagRegisterStates(registers.flipAccumulatorAndFlagRegisterSet(), 1u, 2u)
         expectCurrentAccumulatorAndFlagRegisterStates(registers.flipAccumulatorAndFlagRegisterSet(), 3u, 4u)
-
     }
 
     @Test
@@ -152,9 +150,11 @@ class RegistersTest {
         expectGeneralPurposeRegisterStates(registers.flipGeneralPurposeRegisterSet(), 7u, 8u, 9u, 10u, 11u, 12u)
     }
 
-    private fun expectCurrentAccumulatorAndFlagRegisterStates(registerSet: AccumulatorAndFlagRegisterSet,
-                                                              expectedAccumulatorState: UByte,
-                                                              expectedFlagsState: UByte) {
+    private fun expectCurrentAccumulatorAndFlagRegisterStates(
+        registerSet: AccumulatorAndFlagRegisterSet,
+        expectedAccumulatorState: UByte,
+        expectedFlagsState: UByte,
+    ) {
         expectThat(registerSet) {
             get { accumulator } isEqualTo expectedAccumulatorState
             get { flags } isEqualTo expectedFlagsState
@@ -162,9 +162,15 @@ class RegistersTest {
     }
 
     @Suppress("LongParameterList")
-    private fun expectGeneralPurposeRegisterStates(registerSet: GeneralPurposeRegisterSet, expectedBState: UByte,
-                                                   expectedCState: UByte, expectedDState: UByte, expectedEState: UByte,
-                                                   expectedHState: UByte, expectedLState: UByte) {
+    private fun expectGeneralPurposeRegisterStates(
+        registerSet: GeneralPurposeRegisterSet,
+        expectedBState: UByte,
+        expectedCState: UByte,
+        expectedDState: UByte,
+        expectedEState: UByte,
+        expectedHState: UByte,
+        expectedLState: UByte,
+    ) {
         expectThat(registerSet) {
             get { registerB } isEqualTo expectedBState
             get { registerC } isEqualTo expectedCState

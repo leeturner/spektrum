@@ -12,7 +12,6 @@ data class Registers(
     var indexY: UShort = 0u,
     var interruptPageAddress: UByte = 0u,
     var memoryRefresh: UByte = 0u,
-
     /**
      * The CPU can switch between two sets of these registers using exchange instructions.
      * There is a separate exchange instruction for the accumulatorAndFlag registers and the generalPurpose registers
@@ -20,10 +19,9 @@ data class Registers(
     private var accumulatorAndFlagRegisterSetIndex: Int = 0,
     private val accumulatorAndFlagRegisterSets: List<AccumulatorAndFlagRegisterSet> =
         listOf(AccumulatorAndFlagRegisterSet(), AccumulatorAndFlagRegisterSet()),
-
     private var generalPurposeRegisterSetIndex: Int = 0,
     private val generalPurposeRegisterSets: List<GeneralPurposeRegisterSet> =
-        listOf(GeneralPurposeRegisterSet(), GeneralPurposeRegisterSet())
+        listOf(GeneralPurposeRegisterSet(), GeneralPurposeRegisterSet()),
 ) {
     fun flipAccumulatorAndFlagRegisterSet(): AccumulatorAndFlagRegisterSet {
         accumulatorAndFlagRegisterSetIndex++
@@ -39,13 +37,10 @@ data class Registers(
         return generalPurposeRegisterSets[generalPurposeRegisterSetIndex]
     }
 
-    fun getAccumulatorAndFlagRegisterSet() : AccumulatorAndFlagRegisterSet {
-        return accumulatorAndFlagRegisterSets[accumulatorAndFlagRegisterSetIndex]
-    }
+    fun getAccumulatorAndFlagRegisterSet(): AccumulatorAndFlagRegisterSet =
+        accumulatorAndFlagRegisterSets[accumulatorAndFlagRegisterSetIndex]
 
-    fun getGeneralPurposeRegisterSet() : GeneralPurposeRegisterSet {
-        return generalPurposeRegisterSets[generalPurposeRegisterSetIndex]
-    }
+    fun getGeneralPurposeRegisterSet(): GeneralPurposeRegisterSet = generalPurposeRegisterSets[generalPurposeRegisterSetIndex]
 }
 
 /**
@@ -53,12 +48,21 @@ data class Registers(
  * specific conditions for 8-bit or 16-bit operations, such as indicating whether or not the result of an operation
  * is equal to 0
  */
-data class AccumulatorAndFlagRegisterSet(var accumulator: UByte = 0u, var flags: UByte = 0u)
+data class AccumulatorAndFlagRegisterSet(
+    var accumulator: UByte = 0u,
+    var flags: UByte = 0u,
+)
 
 /**
  * 8 bit General purpose registers
  * Can be combined to form 16 bit registers in this configuration:
  * BC, DE, and HL
  */
-data class GeneralPurposeRegisterSet(var registerB: UByte = 0u, var registerC: UByte = 0u, var registerD: UByte = 0u,
-                                     var registerE: UByte = 0u, var registerH: UByte = 0u, var registerL: UByte = 0u)
+data class GeneralPurposeRegisterSet(
+    var registerB: UByte = 0u,
+    var registerC: UByte = 0u,
+    var registerD: UByte = 0u,
+    var registerE: UByte = 0u,
+    var registerH: UByte = 0u,
+    var registerL: UByte = 0u,
+)
