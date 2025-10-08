@@ -1,23 +1,43 @@
-## Micronaut 4.9.3 Documentation
+# Spektrum - A Kotlin-based Sinclair ZX Spectrum Emulator
 
-- [User Guide](https://docs.micronaut.io/4.9.3/guide/index.html)
-- [API Reference](https://docs.micronaut.io/4.9.3/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/4.9.3/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+A modern ZX Spectrum emulator written in Kotlin, built using the Micronaut framework. This project aims to faithfully
+recreate the experience of the classic Sinclair ZX Spectrum home computer.
 
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-- [GraalVM Gradle Plugin documentation](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
-- [Shadow Gradle Plugin](https://gradleup.com/shadow/)
-## Feature kapt documentation
+## Features
 
-- [Micronaut Kotlin Annotation Processing (KAPT) documentation](https://docs.micronaut.io/snapshot/guide/#kapt)
+- **CPU Emulation**: Z80 CPU implementation with register management
+- **Configurable Speed**: Adjustable emulation speed settings
+- **Command-Line Interface**: Built with Micronaut and Picocli for easy interaction
+- **Modern Architecture**: Clean, testable Kotlin codebase with dependency injection
 
-- [https://kotlinlang.org/docs/kapt.html](https://kotlinlang.org/docs/kapt.html)
+## Requirements
+
+- Java 21 or higher
+- Gradle (wrapper included)
+
+## Building the Project
+
+```bash
+./gradlew build
+```
+
+## Technology Stack
+
+* Language: Kotlin 2.1
+* Framework: Micronaut
+* Build Tool: Gradle
+* JVM: Java 21
+* CLI: Picocli
 
 
-## Feature serialization-jackson documentation
+## Useful Links
 
-- [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
+* Online Z80 IDE - https://clrhome.org/asm/
+* Z80 CPU User Manual - https://www.zilog.com/docs/z80/um0080.pdf
+* Programming The Z80 - Third edition - Rodnay Zaks - http://www.z80.info/zip/zaks_book.pdf
+* How To Write a Computer Emulator by Marat Fayzullin - https://fms.komkon.org/EMUL8/HOWTO.html
 
 
+## Acknowledgments
+
+This emulator is a tribute to Sir Clive Sinclair and the Sinclair ZX Spectrum, which introduced a generation to computing.
