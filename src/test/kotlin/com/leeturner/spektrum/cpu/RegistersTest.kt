@@ -1,10 +1,146 @@
 package com.leeturner.spektrum.cpu
 
+import com.leeturner.spektrum.cpu.FlagRegisterOptions.CARRY_BIT
+import com.leeturner.spektrum.cpu.FlagRegisterOptions.HALF_CARRY_BIT
+import com.leeturner.spektrum.cpu.FlagRegisterOptions.PARITY_OVERFLOW_BIT
+import com.leeturner.spektrum.cpu.FlagRegisterOptions.SIGN_BIT
+import com.leeturner.spektrum.cpu.FlagRegisterOptions.SUBTRACT_BIT
+import com.leeturner.spektrum.cpu.FlagRegisterOptions.ZERO_BIT
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
 class RegistersTest {
+    @Test
+    fun `Carry bit operations`() {
+        val registers = Registers()
+        val flags = registers.getAccumulatorAndFlagRegisterSet().flags
+
+        expectThat(flags.get(CARRY_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+
+        flags.set(CARRY_BIT)
+        expectThat(flags.get(CARRY_BIT)) isEqualTo 1u
+        expectThat(flags.rawValue) isEqualTo 0x1u
+
+        flags.clear(CARRY_BIT)
+        expectThat(flags.get(CARRY_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+    }
+
+    @Test
+    fun `Subtract bit operations`() {
+        val registers = Registers()
+        val flags = registers.getAccumulatorAndFlagRegisterSet().flags
+
+        expectThat(flags.get(SUBTRACT_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+
+        flags.set(SUBTRACT_BIT)
+        expectThat(flags.get(SUBTRACT_BIT)) isEqualTo 1u
+        expectThat(flags.rawValue) isEqualTo 0x2u
+
+        flags.clear(SUBTRACT_BIT)
+        expectThat(flags.get(SUBTRACT_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+    }
+
+    @Test
+    fun `Parity Overflow bit operations`() {
+        val registers = Registers()
+        val flags = registers.getAccumulatorAndFlagRegisterSet().flags
+
+        expectThat(flags.get(PARITY_OVERFLOW_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+
+        flags.set(PARITY_OVERFLOW_BIT)
+        expectThat(flags.get(PARITY_OVERFLOW_BIT)) isEqualTo 1u
+        expectThat(flags.rawValue) isEqualTo 0x4u
+
+        flags.clear(PARITY_OVERFLOW_BIT)
+        expectThat(flags.get(PARITY_OVERFLOW_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+    }
+
+    @Test
+    fun `Half Carry bit operations`() {
+        val registers = Registers()
+        val flags = registers.getAccumulatorAndFlagRegisterSet().flags
+
+        expectThat(flags.get(HALF_CARRY_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+
+        flags.set(HALF_CARRY_BIT)
+        expectThat(flags.get(HALF_CARRY_BIT)) isEqualTo 1u
+        expectThat(flags.rawValue) isEqualTo 0x10u
+
+        flags.clear(HALF_CARRY_BIT)
+        expectThat(flags.get(HALF_CARRY_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+    }
+
+    @Test
+    fun `Zero bit operations`() {
+        val registers = Registers()
+        val flags = registers.getAccumulatorAndFlagRegisterSet().flags
+
+        expectThat(flags.get(ZERO_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+
+        flags.set(ZERO_BIT)
+        expectThat(flags.get(ZERO_BIT)) isEqualTo 1u
+        expectThat(flags.rawValue) isEqualTo 0x40u
+
+        flags.clear(ZERO_BIT)
+        expectThat(flags.get(ZERO_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+    }
+
+    @Test
+    fun `Sign bit operations`() {
+        val registers = Registers()
+        val flags = registers.getAccumulatorAndFlagRegisterSet().flags
+
+        expectThat(flags.get(SIGN_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+
+        flags.set(SIGN_BIT)
+        expectThat(flags.get(SIGN_BIT)) isEqualTo 1u
+        expectThat(flags.rawValue) isEqualTo 0x80u
+
+        flags.clear(SIGN_BIT)
+        expectThat(flags.get(SIGN_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+    }
+
+    @Test
+    fun `Status bit operations combinations`() {
+        val registers = Registers()
+        val flags = registers.getAccumulatorAndFlagRegisterSet().flags
+
+        expectThat(flags.get(SIGN_BIT)) isEqualTo 0u
+        expectThat(flags.rawValue) isEqualTo 0u
+
+        flags.set(CARRY_BIT)
+        flags.set(SUBTRACT_BIT)
+        flags.set(HALF_CARRY_BIT)
+        flags.set(SIGN_BIT)
+
+        expectThat(flags.get(CARRY_BIT)) isEqualTo 1u
+        expectThat(flags.get(SUBTRACT_BIT)) isEqualTo 1u
+        expectThat(flags.get(HALF_CARRY_BIT)) isEqualTo 1u
+        expectThat(flags.get(SIGN_BIT)) isEqualTo 1u
+        expectThat(flags.get(PARITY_OVERFLOW_BIT)) isEqualTo 0u
+        expectThat(flags.get(ZERO_BIT)) isEqualTo 0u
+
+        expectThat(flags.rawValue) isEqualTo 0x93u // 1001 0011 in binary
+
+        flags.clear(SUBTRACT_BIT)
+        flags.clear(HALF_CARRY_BIT)
+
+        expectThat(flags.rawValue) isEqualTo 0x81u // 1000 0001 in binary
+    }
+
     @Test
     fun initialState() {
         val registers = Registers()
@@ -29,7 +165,7 @@ class RegistersTest {
 
         expectThat(registers.getAccumulatorAndFlagRegisterSet()) {
             get { accumulator } isEqualTo 0u
-            get { flags } isEqualTo 0u
+            get { flags.rawValue } isEqualTo 0u
         }
 
         registers.flipAccumulatorAndFlagRegisterSet()
@@ -46,7 +182,7 @@ class RegistersTest {
 
         expectThat(registers.getAccumulatorAndFlagRegisterSet()) {
             get { accumulator } isEqualTo 0u
-            get { flags } isEqualTo 0u
+            get { flags.rawValue } isEqualTo 0u
         }
     }
 
@@ -60,7 +196,7 @@ class RegistersTest {
         // Change in values should be reflected when the getter is called
         var accumulatorAndFlagRegisterSet = registers.getAccumulatorAndFlagRegisterSet()
         accumulatorAndFlagRegisterSet.accumulator = 1u
-        accumulatorAndFlagRegisterSet.flags = 2u
+        accumulatorAndFlagRegisterSet.flags.rawValue = 2u
 
         expectCurrentAccumulatorAndFlagRegisterStates(registers.getAccumulatorAndFlagRegisterSet(), 1u, 2u)
 
@@ -72,7 +208,7 @@ class RegistersTest {
         // Change this second set too and test it
         accumulatorAndFlagRegisterSet = registers.getAccumulatorAndFlagRegisterSet()
         accumulatorAndFlagRegisterSet.accumulator = 3u
-        accumulatorAndFlagRegisterSet.flags = 4u
+        accumulatorAndFlagRegisterSet.flags.rawValue = 4u
 
         expectCurrentAccumulatorAndFlagRegisterStates(registers.getAccumulatorAndFlagRegisterSet(), 3u, 4u)
 
@@ -157,7 +293,7 @@ class RegistersTest {
     ) {
         expectThat(registerSet) {
             get { accumulator } isEqualTo expectedAccumulatorState
-            get { flags } isEqualTo expectedFlagsState
+            get { flags.rawValue } isEqualTo expectedFlagsState
         }
     }
 
