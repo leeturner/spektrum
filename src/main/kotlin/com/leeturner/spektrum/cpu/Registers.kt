@@ -75,7 +75,7 @@ data class GeneralPurposeRegisterSet(
 
 /**
  * The Accumulator holds the results of 8-bit arithmetic or logical operations while the Flag Register indicates
- * specific conditions for 8-bit or 16-bit operations, such as indicating whether or not the result of an operation
+ * specific conditions for 8-bit or 16-bit operations, such as indicating whether the result of an operation
  * is equal to 0
  */
 data class AccumulatorAndFlagRegisterSet(
