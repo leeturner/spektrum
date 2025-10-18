@@ -1,28 +1,33 @@
 package com.leeturner.spektrum.cpu
 
+import jakarta.inject.Singleton
+
 /**
  * Based on the Zilog Z80 CPU User Manual available here:
  * https://www.zilog.com/docs/z80/um0080.pdf
  */
-data class Registers(
+@Singleton
+class Registers {
     // Special purpose registers
-    var programCounter: UShort = 0u,
-    var stackPointer: UShort = 0u,
-    var indexX: UShort = 0u,
-    var indexY: UShort = 0u,
-    var interruptPageAddress: UByte = 0u,
-    var memoryRefresh: UByte = 0u,
+    var programCounter: UShort = 0u
+    var stackPointer: UShort = 0u
+    var indexX: UShort = 0u
+    var indexY: UShort = 0u
+    var interruptPageAddress: UByte = 0u
+    var memoryRefresh: UByte = 0u
+
     /**
      * The CPU can switch between two sets of these registers using exchange instructions.
      * There is a separate exchange instruction for the accumulatorAndFlag registers and the generalPurpose registers
      */
-    private var accumulatorAndFlagRegisterSetIndex: Int = 0,
+    private var accumulatorAndFlagRegisterSetIndex: Int = 0
     private val accumulatorAndFlagRegisterSets: List<AccumulatorAndFlagRegisterSet> =
-        listOf(AccumulatorAndFlagRegisterSet(), AccumulatorAndFlagRegisterSet()),
-    private var generalPurposeRegisterSetIndex: Int = 0,
+        listOf(AccumulatorAndFlagRegisterSet(), AccumulatorAndFlagRegisterSet())
+
+    private var generalPurposeRegisterSetIndex: Int = 0
     private val generalPurposeRegisterSets: List<GeneralPurposeRegisterSet> =
-        listOf(GeneralPurposeRegisterSet(), GeneralPurposeRegisterSet()),
-) {
+        listOf(GeneralPurposeRegisterSet(), GeneralPurposeRegisterSet())
+
     fun flipAccumulatorAndFlagRegisterSet(): AccumulatorAndFlagRegisterSet {
         accumulatorAndFlagRegisterSetIndex++
         accumulatorAndFlagRegisterSetIndex %= 2
