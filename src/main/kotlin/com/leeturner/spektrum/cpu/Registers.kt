@@ -45,18 +45,17 @@ class Registers {
     fun getAccumulatorAndFlagRegisterSet(): AccumulatorAndFlagRegisterSet =
         accumulatorAndFlagRegisterSets[accumulatorAndFlagRegisterSetIndex]
 
-    fun getGeneralPurposeRegisterSet(): GeneralPurposeRegisterSet = generalPurposeRegisterSets[generalPurposeRegisterSetIndex]
+    fun getGeneralPurposeRegisterSet(): GeneralPurposeRegisterSet =
+        generalPurposeRegisterSets[generalPurposeRegisterSetIndex]
 
     override fun toString(): String {
         return "Registers(programCounter=$programCounter, stackPointer=$stackPointer, indexX=$indexX, " +
-                "indexY=$indexY, interruptPageAddress=$interruptPageAddress, memoryRefresh=$memoryRefresh, " +
-                "accumulatorAndFlagRegisterSetIndex=$accumulatorAndFlagRegisterSetIndex, " +
-                "accumulatorAndFlagRegisterSets=$accumulatorAndFlagRegisterSets, " +
-                "generalPurposeRegisterSetIndex=$generalPurposeRegisterSetIndex, " +
-                "generalPurposeRegisterSets=$generalPurposeRegisterSets)"
+            "indexY=$indexY, interruptPageAddress=$interruptPageAddress, memoryRefresh=$memoryRefresh, " +
+            "accumulatorAndFlagRegisterSetIndex=$accumulatorAndFlagRegisterSetIndex, " +
+            "accumulatorAndFlagRegisterSets=$accumulatorAndFlagRegisterSets, " +
+            "generalPurposeRegisterSetIndex=$generalPurposeRegisterSetIndex, " +
+            "generalPurposeRegisterSets=$generalPurposeRegisterSets)"
     }
-
-
 }
 
 /**
@@ -99,18 +98,21 @@ enum class FlagRegisterOptions(val bitPosition: UByte) {
      * Bit 1000 0000 in binary.
      */
     SIGN_BIT(0x80u),
+
     /*
      * Used to indicate whether the value of a byte which has been computed, or is being transferred, is zero.
      * It is also used with comparison instructions to indicate a match, and for other miscellaneous functions.
      * Bit 0100 0000 in binary.
      */
     ZERO_BIT(0x40u),
+
     /*
      * The half-carry flag indicates a possible carry from bit 3 into bit 4 during an arithmetic operation.
      * In other words, it represents the carry from the low-order nibble (group of 4 bits) into the high order one.
      * Bit 0001 0000 in binary.
      */
     HALF_CARRY_BIT(0x10u),
+
     /*
      * Specific instructions will set or reset this flag depending on the parity of the result; parity is determined
      * by counting the total number of ones in the result. If this number is odd, the parity bit will be set to
@@ -121,11 +123,13 @@ enum class FlagRegisterOptions(val bitPosition: UByte) {
      * Bit 0000 0100 in binary.
      */
     PARITY_OVERFLOW_BIT(0x4u),
+
     /*
      * Used by the Z80 during BCD operations and is set to "0" after an addition and to "1" after a subtraction.
      * Bit 0000 0010 in binary.
      */
     SUBTRACT_BIT(0x2u),
+
     /*
      * Used to indicate whether an addition or subtraction operation has resulted in a carry (or borrow).
      * Also  used as a ninth bit in the case of shift and rotate operations.
