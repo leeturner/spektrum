@@ -1,5 +1,6 @@
 package com.leeturner.spektrum.cpu
 
+import com.leeturner.spektrum.cpu.FlagRegisterOptions.CARRY_BIT
 import jakarta.inject.Singleton
 
 enum class OpCode(
@@ -7,8 +8,6 @@ enum class OpCode(
 ) {
     ADC_A_B(0x88u.toUByte()),
 }
-
-fun carryBit(value: UByte): UByte = (value and 0x1u)
 
 @Singleton
 class Cpu(
@@ -20,7 +19,7 @@ class Cpu(
                 val accumulatorAndFlagRegisterSet = registers.getAccumulatorAndFlagRegisterSet()
                 val generalPurposeRegisterSet = registers.getGeneralPurposeRegisterSet()
 
-                val carry = carryBit(accumulatorAndFlagRegisterSet.flags)
+                val carry = accumulatorAndFlagRegisterSet.flags.get(CARRY_BIT)
                 val result = generalPurposeRegisterSet.registerB + accumulatorAndFlagRegisterSet.accumulator + carry
                 accumulatorAndFlagRegisterSet.accumulator = result.toUByte()
             }
