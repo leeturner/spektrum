@@ -45,17 +45,15 @@ class Registers {
     fun getAccumulatorAndFlagRegisterSet(): AccumulatorAndFlagRegisterSet =
         accumulatorAndFlagRegisterSets[accumulatorAndFlagRegisterSetIndex]
 
-    fun getGeneralPurposeRegisterSet(): GeneralPurposeRegisterSet =
-        generalPurposeRegisterSets[generalPurposeRegisterSetIndex]
+    fun getGeneralPurposeRegisterSet(): GeneralPurposeRegisterSet = generalPurposeRegisterSets[generalPurposeRegisterSetIndex]
 
-    override fun toString(): String {
-        return "Registers(programCounter=$programCounter, stackPointer=$stackPointer, indexX=$indexX, " +
+    override fun toString() =
+        "Registers(programCounter=$programCounter, stackPointer=$stackPointer, indexX=$indexX, " +
             "indexY=$indexY, interruptPageAddress=$interruptPageAddress, memoryRefresh=$memoryRefresh, " +
             "accumulatorAndFlagRegisterSetIndex=$accumulatorAndFlagRegisterSetIndex, " +
             "accumulatorAndFlagRegisterSets=$accumulatorAndFlagRegisterSets, " +
             "generalPurposeRegisterSetIndex=$generalPurposeRegisterSetIndex, " +
             "generalPurposeRegisterSets=$generalPurposeRegisterSets)"
-    }
 }
 
 /**
@@ -79,7 +77,7 @@ data class GeneralPurposeRegisterSet(
  */
 data class AccumulatorAndFlagRegisterSet(
     var accumulator: UByte = 0u,
-    var flags: FlagRegister = FlagRegister()
+    var flags: FlagRegister = FlagRegister(),
 )
 
 /**
@@ -89,7 +87,9 @@ data class AccumulatorAndFlagRegisterSet(
  *  *
  *  *  See page 174 of Rodney Zaks' book: http://www.z80.info/zip/zaks_book.pdf
  */
-enum class FlagRegisterOptions(val bitPosition: UByte) {
+enum class FlagRegisterOptions(
+    val bitPosition: UByte,
+) {
     /*
      * Reflects the value of the most significant bit of a result or of a byte being transferred (bit seven).
      * In two's complement notation, the most significant bit is used to represent the sign.
@@ -135,13 +135,21 @@ enum class FlagRegisterOptions(val bitPosition: UByte) {
      * Also  used as a ninth bit in the case of shift and rotate operations.
      * Bit 0000 0001 in binary.
      */
-    CARRY_BIT(0x1u);
+    CARRY_BIT(0x1u), ;
 
     val inverseBitPosition: UByte = bitPosition.inv()
 }
 
-data class FlagRegister(var rawValue: UByte = 0u) {
+data class FlagRegister(
+    var rawValue: UByte = 0u,
+) {
     fun get(option: FlagRegisterOptions) = if ((rawValue and option.bitPosition) >= 1u.toUByte()) 1u else 0u
-    fun set(option: FlagRegisterOptions) { rawValue = rawValue or option.bitPosition }
-    fun clear(option: FlagRegisterOptions) { rawValue = rawValue and option.inverseBitPosition }
+
+    fun set(option: FlagRegisterOptions) {
+        rawValue = rawValue or option.bitPosition
+    }
+
+    fun clear(option: FlagRegisterOptions) {
+        rawValue = rawValue and option.inverseBitPosition
+    }
 }
