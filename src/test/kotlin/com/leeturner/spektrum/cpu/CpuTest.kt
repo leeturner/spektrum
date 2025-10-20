@@ -34,7 +34,7 @@ class CpuTest(
 
         @Test
         fun `test decode instruction accumulator value set with carry`() {
-            registers.getAccumulatorAndFlagRegisterSet().flags = 1u
+            registers.getAccumulatorAndFlagRegisterSet().flags.rawValue = 1u
             registers.getGeneralPurposeRegisterSet().registerB = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
