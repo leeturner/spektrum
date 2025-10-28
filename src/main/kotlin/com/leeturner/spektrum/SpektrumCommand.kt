@@ -1,7 +1,9 @@
 package com.leeturner.spektrum
 
 import com.leeturner.spektrum.config.SpektrumConfiguration
+import com.leeturner.spektrum.tmp.TickEvent
 import io.micronaut.configuration.picocli.PicocliRunner
+import io.micronaut.context.event.ApplicationEventPublisher
 import io.micronaut.core.io.ResourceLoader
 import jakarta.inject.Inject
 import picocli.CommandLine
@@ -20,6 +22,9 @@ class SpektrumCommand(
     @CommandLine.Option(names = ["-v", "--verbose"], description = ["..."])
     private var verbose: Boolean = false
 
+  @Inject
+  lateinit var eventPublisher: ApplicationEventPublisher<TickEvent>
+
     override fun call(): Int {
         // Load and print banner
         resourceLoader.getResourceAsStream("classpath:banner.txt").ifPresent { inputStream ->
@@ -31,6 +36,10 @@ class SpektrumCommand(
         if (verbose) {
             println("${spektrumConfiguration.name} v${spektrumConfiguration.version}")
         }
+
+      repeat(100) {
+        eventPublisher.publishEvent(TickEvent("TickEvent"))
+      }
 
         // success
         return 0
