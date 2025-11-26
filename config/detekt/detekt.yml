@@ -1,4 +1,7 @@
-performance: 
-  SpreadOperator: 
+performance:
+  SpreadOperator:
     excludes: ['**/**Command**']
-    
+
+style:
+  ForbiddenComment:
+    active: false
