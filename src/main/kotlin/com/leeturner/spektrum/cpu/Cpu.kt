@@ -20,18 +20,23 @@ class Cpu(
             ADC_A_B_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerB)
             }
+
             ADC_A_C_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerC)
             }
+
             ADC_A_D_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerD)
             }
+
             ADC_A_E_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerE)
             }
+
             ADC_A_H_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerH)
             }
+
             ADC_A_L_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerL)
             }

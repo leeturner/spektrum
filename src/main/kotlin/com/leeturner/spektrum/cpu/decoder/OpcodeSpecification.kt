@@ -6,7 +6,9 @@ import com.leeturner.spektrum.cpu.decoder.model.Opcode
 import com.leeturner.spektrum.cpu.decoder.model.OpcodeMetaData
 import com.leeturner.spektrum.exception.UnrecognisedOpcodeException
 
-enum class OpcodeSpecification(val opcode: Opcode) {
+enum class OpcodeSpecification(
+    val opcode: Opcode,
+) {
     ADC_A_B_IMPLIED(
         opcode {
             cpuOperation = CpuOperation.ADC_A_B
@@ -15,7 +17,7 @@ enum class OpcodeSpecification(val opcode: Opcode) {
                 hex = 0x88u
                 numberOfCycles = 1
             }
-        }
+        },
     ),
     ADC_A_C_IMPLIED(
         opcode {
@@ -25,7 +27,7 @@ enum class OpcodeSpecification(val opcode: Opcode) {
                 hex = 0x89u
                 numberOfCycles = 1
             }
-        }
+        },
     ),
     ADC_A_D_IMPLIED(
         opcode {
@@ -35,7 +37,7 @@ enum class OpcodeSpecification(val opcode: Opcode) {
                 hex = 0x8Au
                 numberOfCycles = 1
             }
-        }
+        },
     ),
     ADC_A_E_IMPLIED(
         opcode {
@@ -45,7 +47,7 @@ enum class OpcodeSpecification(val opcode: Opcode) {
                 hex = 0x8Bu
                 numberOfCycles = 1
             }
-        }
+        },
     ),
     ADC_A_H_IMPLIED(
         opcode {
@@ -55,7 +57,7 @@ enum class OpcodeSpecification(val opcode: Opcode) {
                 hex = 0x8Cu
                 numberOfCycles = 1
             }
-        }
+        },
     ),
     ADC_A_L_IMPLIED(
         opcode {
@@ -65,21 +67,19 @@ enum class OpcodeSpecification(val opcode: Opcode) {
                 hex = 0x8Du
                 numberOfCycles = 1
             }
-        }
-    );
+        },
+    ), ;
 
     companion object {
         private val map = entries.associateBy { it.opcode.metaData.hex }
 
-        fun from(instruction: UByte): OpcodeSpecification {
-            return map[instruction]
+        fun from(instruction: UByte): OpcodeSpecification =
+            map[instruction]
                 ?: throw UnrecognisedOpcodeException("Unable to decode opcode: ${instruction.toHex()}")
-        }
     }
 }
 
-private fun opcode(opcodeBuilder: OpcodeBuilder.() -> Unit): Opcode =
-    OpcodeBuilder().apply(opcodeBuilder).build()
+private fun opcode(opcodeBuilder: OpcodeBuilder.() -> Unit): Opcode = OpcodeBuilder().apply(opcodeBuilder).build()
 
 private class OpcodeBuilder {
     var cpuOperation: CpuOperation? = null
@@ -109,11 +109,12 @@ private class OpcodeMetaDataBuilder {
 
 private fun UByte.toHex() = this.toHexString(hexFormat)
 
-private val hexFormat = HexFormat {
-    this.upperCase = true
-    this.number {
-        prefix = "0x"
-        removeLeadingZeros = false
-        minLength = 2
+private val hexFormat =
+    HexFormat {
+        this.upperCase = true
+        this.number {
+            prefix = "0x"
+            removeLeadingZeros = false
+            minLength = 2
+        }
     }
-}

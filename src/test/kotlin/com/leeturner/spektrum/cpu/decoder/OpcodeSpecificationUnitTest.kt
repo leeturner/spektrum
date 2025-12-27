@@ -7,7 +7,6 @@ import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
 class OpcodeSpecificationUnitTest {
-
     @Test
     fun `adcABImpliedOpcode specification`() {
         assertOpcodeSpecification(
@@ -15,7 +14,7 @@ class OpcodeSpecificationUnitTest {
             CpuOperation.ADC_A_B,
             CpuAddressingMode.IMPLIED,
             0x88u,
-            1
+            1,
         )
     }
 
@@ -26,7 +25,7 @@ class OpcodeSpecificationUnitTest {
             CpuOperation.ADC_A_C,
             CpuAddressingMode.IMPLIED,
             0x89u,
-            1
+            1,
         )
     }
 
@@ -37,7 +36,7 @@ class OpcodeSpecificationUnitTest {
             CpuOperation.ADC_A_D,
             CpuAddressingMode.IMPLIED,
             0x8Au,
-            1
+            1,
         )
     }
 
@@ -48,7 +47,7 @@ class OpcodeSpecificationUnitTest {
             CpuOperation.ADC_A_E,
             CpuAddressingMode.IMPLIED,
             0x8Bu,
-            1
+            1,
         )
     }
 
@@ -59,7 +58,7 @@ class OpcodeSpecificationUnitTest {
             CpuOperation.ADC_A_H,
             CpuAddressingMode.IMPLIED,
             0x8Cu,
-            1
+            1,
         )
     }
 
@@ -70,7 +69,7 @@ class OpcodeSpecificationUnitTest {
             CpuOperation.ADC_A_L,
             CpuAddressingMode.IMPLIED,
             0x8Du,
-            1
+            1,
         )
     }
 
@@ -79,7 +78,7 @@ class OpcodeSpecificationUnitTest {
         cpuOperation: CpuOperation,
         cpuAddressingMode: CpuAddressingMode,
         hexCode: UByte,
-        numberOfMCycles: Int
+        numberOfMCycles: Int,
     ) {
         expectThat(opcodeSpecification.opcode.cpuOperation) isEqualTo cpuOperation
         expectThat(opcodeSpecification.opcode.cpuAddressingMode) isEqualTo cpuAddressingMode
