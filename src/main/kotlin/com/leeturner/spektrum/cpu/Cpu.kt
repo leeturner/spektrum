@@ -1,47 +1,43 @@
 package com.leeturner.spektrum.cpu
 
 import com.leeturner.spektrum.cpu.FlagRegisterOptions.CARRY_BIT
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification.ADC_A_B_IMPLIED
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification.ADC_A_C_IMPLIED
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification.ADC_A_D_IMPLIED
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification.ADC_A_E_IMPLIED
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification.ADC_A_H_IMPLIED
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification.ADC_A_L_IMPLIED
 import jakarta.inject.Singleton
-
-enum class OpCode(
-    val code: UByte,
-) {
-    ADC_A_B(0x88u.toUByte()),
-    ADC_A_C(0x89u.toUByte()),
-    ADC_A_D(0x8Au.toUByte()),
-    ADC_A_E(0x8Bu.toUByte()),
-    ADC_A_H(0x8Cu.toUByte()),
-    ADC_A_L(0x8Du.toUByte()),
-}
 
 @Singleton
 class Cpu(
     private val registers: Registers,
 ) {
-    fun decodeInstruction(instruction: OpCode) {
-        // TODO: implement carry, overflow, sign bits, 0 bits, half carry bits - page 30
-        when (instruction) {
-            OpCode.ADC_A_B -> {
+    fun decodeInstruction(instruction: UByte) {
+        when (OpcodeSpecification.from(instruction)) {
+            // TODO: implement carry, overflow, sign bits, 0 bits, half carry bits - page 30
+            ADC_A_B_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerB)
             }
 
-            OpCode.ADC_A_C -> {
+            ADC_A_C_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerC)
             }
 
-            OpCode.ADC_A_D -> {
+            ADC_A_D_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerD)
             }
 
-            OpCode.ADC_A_E -> {
+            ADC_A_E_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerE)
             }
 
-            OpCode.ADC_A_H -> {
+            ADC_A_H_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerH)
             }
 
-            OpCode.ADC_A_L -> {
+            ADC_A_L_IMPLIED -> {
                 adcA(registers.getGeneralPurposeRegisterSet().registerL)
             }
         }

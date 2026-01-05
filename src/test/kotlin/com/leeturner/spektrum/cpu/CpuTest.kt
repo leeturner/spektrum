@@ -1,10 +1,13 @@
 package com.leeturner.spektrum.cpu
 
 import com.leeturner.spektrum.cpu.FlagRegisterOptions.CARRY_BIT
+import com.leeturner.spektrum.cpu.decoder.OpcodeSpecification
+import com.leeturner.spektrum.exception.UnrecognisedOpcodeException
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
+import strikt.api.expectThrows
 import strikt.assertions.isEqualTo
 
 @MicronautTest(rebuildContext = true)
@@ -14,11 +17,13 @@ class CpuTest(
 ) {
     @Nested
     inner class AdcAB {
+        val opcodeHex = OpcodeSpecification.ADC_A_B_IMPLIED.opcode.metaData.hex
+
         @Test
         fun `test decode instruction accumulator 0`() {
             registers.getGeneralPurposeRegisterSet().registerB = 3u
 
-            cpu.decodeInstruction(OpCode.ADC_A_B)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(3u)
         }
@@ -28,7 +33,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerB = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_B)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(7u)
         }
@@ -39,7 +44,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerB = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_B)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(8u)
         }
@@ -47,11 +52,13 @@ class CpuTest(
 
     @Nested
     inner class AdcAC {
+        val opcodeHex = OpcodeSpecification.ADC_A_C_IMPLIED.opcode.metaData.hex
+
         @Test
         fun `test decode instruction accumulator 0`() {
             registers.getGeneralPurposeRegisterSet().registerC = 3u
 
-            cpu.decodeInstruction(OpCode.ADC_A_C)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(3u)
         }
@@ -61,7 +68,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerC = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_C)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(7u)
         }
@@ -72,7 +79,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerC = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_C)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(8u)
         }
@@ -80,11 +87,13 @@ class CpuTest(
 
     @Nested
     inner class AdcAD {
+        val opcodeHex = OpcodeSpecification.ADC_A_D_IMPLIED.opcode.metaData.hex
+
         @Test
         fun `test decode instruction accumulator 0`() {
             registers.getGeneralPurposeRegisterSet().registerD = 3u
 
-            cpu.decodeInstruction(OpCode.ADC_A_D)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(3u)
         }
@@ -94,7 +103,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerD = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_D)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(7u)
         }
@@ -105,7 +114,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerD = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_D)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(8u)
         }
@@ -113,11 +122,13 @@ class CpuTest(
 
     @Nested
     inner class AdcAE {
+        val opcodeHex = OpcodeSpecification.ADC_A_E_IMPLIED.opcode.metaData.hex
+
         @Test
         fun `test decode instruction accumulator 0`() {
             registers.getGeneralPurposeRegisterSet().registerE = 3u
 
-            cpu.decodeInstruction(OpCode.ADC_A_E)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(3u)
         }
@@ -127,7 +138,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerE = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_E)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(7u)
         }
@@ -138,7 +149,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerE = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_E)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(8u)
         }
@@ -146,11 +157,13 @@ class CpuTest(
 
     @Nested
     inner class AdcAH {
+        val opcodeHex = OpcodeSpecification.ADC_A_H_IMPLIED.opcode.metaData.hex
+
         @Test
         fun `test decode instruction accumulator 0`() {
             registers.getGeneralPurposeRegisterSet().registerH = 3u
 
-            cpu.decodeInstruction(OpCode.ADC_A_H)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(3u)
         }
@@ -160,7 +173,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerH = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_H)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(7u)
         }
@@ -171,7 +184,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerH = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_H)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(8u)
         }
@@ -179,11 +192,13 @@ class CpuTest(
 
     @Nested
     inner class AdcAL {
+        val opcodeHex = OpcodeSpecification.ADC_A_L_IMPLIED.opcode.metaData.hex
+
         @Test
         fun `test decode instruction accumulator 0`() {
             registers.getGeneralPurposeRegisterSet().registerL = 3u
 
-            cpu.decodeInstruction(OpCode.ADC_A_L)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(3u)
         }
@@ -193,7 +208,7 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerL = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_L)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(7u)
         }
@@ -204,9 +219,19 @@ class CpuTest(
             registers.getGeneralPurposeRegisterSet().registerL = 3u
             registers.getAccumulatorAndFlagRegisterSet().accumulator = 4u
 
-            cpu.decodeInstruction(OpCode.ADC_A_L)
+            cpu.decodeInstruction(opcodeHex)
 
             expectThat(registers.getAccumulatorAndFlagRegisterSet().accumulator).isEqualTo(8u)
+        }
+    }
+
+    @Nested
+    inner class Misc {
+        @Test
+        fun `test unrecognised instruction`() {
+            expectThrows<UnrecognisedOpcodeException> {
+                cpu.decodeInstruction(0x99u)
+            }
         }
     }
 }
