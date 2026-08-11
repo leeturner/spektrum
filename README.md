@@ -12,7 +12,7 @@ recreate the experience of the classic Sinclair ZX Spectrum home computer.
 
 ## Requirements
 
-- Java 21 or higher
+- Java 25 or higher
 - Gradle (wrapper included)
 
 ## Building the Project
@@ -23,10 +23,10 @@ recreate the experience of the classic Sinclair ZX Spectrum home computer.
 
 ## Technology Stack
 
-* Language: Kotlin 2.1
+* Language: Kotlin
 * Framework: Micronaut
 * Build Tool: Gradle
-* JVM: Java 21
+* JVM: Java 25
 * CLI: Picocli
 
 

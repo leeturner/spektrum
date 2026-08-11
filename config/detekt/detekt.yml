@@ -5,3 +5,5 @@ performance:
 style:
   ForbiddenComment:
     active: false
+  MagicNumber:
+    active: false
