@@ -1,11 +1,10 @@
 plugins {
-  alias(libs.plugins.kotlin.jvm)
-  alias(libs.plugins.kapt)
-  alias(libs.plugins.kotlin.allopen)
-  alias(libs.plugins.micronaut.application)
-  alias(libs.plugins.shadow)
-  alias(libs.plugins.detekt)
-  alias(libs.plugins.kotlinter)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.micronaut.application)
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.kotlinter)
 }
 
 version = "0.1"
@@ -17,13 +16,8 @@ repositories {
 
 dependencies {
     kapt(libs.picocli.codegen)
-    kapt(libs.micronaut.serde.processor)
     implementation(libs.picocli)
-    implementation(libs.micronaut.kotlin.extension.functions)
-    implementation(libs.micronaut.kotlin.runtime)
     implementation(libs.micronaut.picocli)
-    implementation(libs.kotlin.reflect)
-    implementation(libs.kotlin.stdlib.jdk8)
     runtimeOnly(libs.logback.classic)
 
     testImplementation(libs.junit.platform.suite)
@@ -34,20 +28,14 @@ application {
     mainClass = "com.leeturner.spektrum.SpektrumCommand"
 }
 
-java {
-    sourceCompatibility = JavaVersion.toVersion("25")
-}
-
 kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(25))
-    }
+    jvmToolchain(25)
 }
 
 detekt {
-  toolVersion = libs.versions.detekt.get()
-  config.setFrom(file("config/detekt/detekt.yml"))
-  buildUponDefaultConfig = true
+    toolVersion = libs.versions.detekt.get()
+    config.setFrom(file("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
 }
 
 micronaut {
@@ -58,13 +46,3 @@ micronaut {
         annotations("com.leeturner.spektrum*")
     }
 }
-
-tasks.named<io.micronaut.gradle.docker.MicronautDockerfile>("dockerfile") {
-  baseImage = "eclipse-temurin:25-jre"
-}
-
-tasks.named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") {
-    jdkVersion = "25"
-}
-
-
