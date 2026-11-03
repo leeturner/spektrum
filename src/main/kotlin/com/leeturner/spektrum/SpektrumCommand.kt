@@ -17,6 +17,7 @@ class SpektrumCommand(
     @Inject private val spektrumConfiguration: SpektrumConfiguration,
     @Inject private val resourceLoader: ResourceLoader,
 ) : Callable<Int> {
+    @Suppress("VarCouldBeVal") // set reflectively by picocli
     @CommandLine.Option(names = ["-v", "--verbose"], description = ["..."])
     private var verbose: Boolean = false
 
