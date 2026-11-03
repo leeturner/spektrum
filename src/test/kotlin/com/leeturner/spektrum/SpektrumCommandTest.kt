@@ -15,6 +15,7 @@ import java.io.PrintStream
 
 @MicronautTest
 class SpektrumCommandTest {
+    @Suppress("VarCouldBeVal") // field-injected by Micronaut
     @Inject
     private lateinit var spektrumConfiguration: SpektrumConfiguration
 

@@ -38,6 +38,8 @@ detekt {
     buildUponDefaultConfig = true
 }
 
+tasks.check { dependsOn(tasks.detektMain, tasks.detektTest) }
+
 micronaut {
     version(libs.versions.micronaut.version.get())
     testRuntime("junit5")

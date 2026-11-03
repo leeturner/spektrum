@@ -90,9 +90,12 @@ private class OpcodeBuilder {
         metadata = OpcodeMetaDataBuilder().apply(metaData).build()
     }
 
-    fun build(): Opcode { // We know these field will always be non-null
-        return Opcode(cpuOperation!!, cpuAddressingMode!!, metadata!!)
-    }
+    fun build(): Opcode =
+        Opcode(
+            checkNotNull(cpuOperation) { "cpuOperation not set" },
+            checkNotNull(cpuAddressingMode) { "cpuAddressingMode not set" },
+            checkNotNull(metadata) { "metaData not set" },
+        )
 }
 
 private class OpcodeMetaDataBuilder {
@@ -101,9 +104,8 @@ private class OpcodeMetaDataBuilder {
 
     fun build(): OpcodeMetaData =
         OpcodeMetaData(
-            // We know these fields will always be non-null
-            hex!!,
-            numberOfCycles!!,
+            checkNotNull(hex) { "hex not set" },
+            checkNotNull(numberOfCycles) { "numberOfCycles not set" },
         )
 }
 
